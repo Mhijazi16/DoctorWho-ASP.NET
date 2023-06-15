@@ -1,0 +1,139 @@
+# Rider files
+.idea/
+*.sln.iml
+*.ipr
+*.iws
+*.resharper
+
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+dll/
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+*.ncrunch*
+*.pidb
+*.svclog
+*.scc
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# EF Core
+**/Migrations/*.Designer.cs
+**/Migrations/*.resx
+**/Migrations/*.user.cs
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+
+# Build results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+bin/
+obj/
+
+# StyleCop
+StyleCopReport.xml
+
+# Resharper
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+
+# GhostDoc plugin setting file
+*.GhostDoc.xml
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+
+# Installshield output folder
+[Ee]xpress/
+
+# DocProject
+**/*.HxT
+**/*.HxC
+**/*.hhc
+**/*.hhk
+**/*.hhp
+**/Html2
+**/html
+
+# Click-Once
+publish/
+*.publish.xml
+*.publish.htm
+*.publish.*.cache
+*.publish.server.config
+*.publish.config
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+# Note: Comment the next line if you want to checkin your web deploy settings
+# but database connection strings (with potential passwords) will be unencrypted
+*.pubxml
+*.pubxml.*
+*.pubxml.user
+*.pubxml.bak
+*.msdeploy*.*
+*.wpp.*
+*.PublishScripts/
+
+# RIA/Silverlight projects
+Generated_Code/
+
+# Bower dependency files
+bower_components/
+
+# npm package files
+node_modules/
+package-lock.json
+npm-debug.log
+
+# ESLint configuration
+.eslintcache
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Visual Studio Code files
+.vscode/
