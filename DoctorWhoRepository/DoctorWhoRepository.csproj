@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Foothill\DoctorWho\DoctorWho\DoctorWho.Db\DoctorWho.Db.csproj" />
+      <ProjectReference Include="..\DoctorWho.Web\DoctorWho.Web.csproj" />
+    </ItemGroup>
+
 </Project>
