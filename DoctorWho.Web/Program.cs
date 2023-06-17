@@ -1,11 +1,15 @@
+using DoctorWho.Db;
 using DoctorWhoRepository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DoctorWhoContext>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
