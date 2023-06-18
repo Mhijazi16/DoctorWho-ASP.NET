@@ -1,15 +1,26 @@
+using System.Reflection;
 using DoctorWho.Db;
 using DoctorWhoRepository;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddFluentValidation(options =>
+    {
+        options.ImplicitlyValidateChildProperties = true;
+        options.ImplicitlyValidateRootCollectionElements = true;
+
+        options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DoctorWhoContext>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 var app = builder.Build();
 
