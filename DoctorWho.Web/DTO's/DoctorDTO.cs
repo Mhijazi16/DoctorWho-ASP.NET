@@ -2,9 +2,14 @@ namespace DoctorWho.Web.DTO_s;
 
 public class DoctorDTO
 {
-    public String? Name { get; set; }
-    public int? Number { get; set; }
-    public DateTime? LastEpisodeDate { get; set; }
-    public DateTime? FirstEpisodeDate { get; set; } 
-    public DateTime? BirthDay { get; set; }
+    
+    public int DoctorNumber { get; set; }
+
+    public string? DoctorName { get; set; }
+
+    public DateOnly BirthDate { get; set; }
+
+    public DateOnly LastEpisodeDate { get; set; }
+
+    public DateOnly FirstEpisodeDate { get; set; }
 }
