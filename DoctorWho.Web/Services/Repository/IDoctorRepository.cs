@@ -8,4 +8,5 @@ public interface IDoctorRepository
     Task<Doctor?> GetDoctorAsync(int id);
     Task<bool> InsertDoctorAsync(Doctor doctor);
     Task<bool> UpdateDocotrAsync(int id, Doctor data);
+    Task<bool> DeleteDoctorAsync(Doctor? doctor);
 }

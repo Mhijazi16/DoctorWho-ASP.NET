@@ -13,7 +13,6 @@ public class DoctorRepository : IDoctorRepository
    public async Task<IEnumerable<Doctor>> GetAllDoctorsAsync()
        => await _context.Doctors.OrderBy(d => d.DoctorName).ToListAsync(); 
    
-   
    public async Task<Doctor?> GetDoctorAsync(int id)
        => await _context.Doctors.FindAsync(id);
 
@@ -56,4 +55,17 @@ public class DoctorRepository : IDoctorRepository
        }
    }
 
+   public async Task<bool> DeleteDoctorAsync(Doctor doctor)
+   {
+       _context.Doctors.Remove(doctor);
+       try
+       {
+           await _context.SaveChangesAsync();
+           return true;
+       }
+       catch
+       {
+           return false; 
+       }
+   }
 }
