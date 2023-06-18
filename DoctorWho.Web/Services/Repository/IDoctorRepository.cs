@@ -10,4 +10,5 @@ public interface IDoctorRepository
     Task<bool> UpdateDocotrAsync(int id, Doctor data);
     Task<int> DeleteDoctorAsync(Doctor doctor);
     Task<Doctor?> GetDoctorWithEpisodes(int id);
+    Task<bool> CreateDoctorAsync(Doctor doctor);
 }

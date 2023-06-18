@@ -67,4 +67,19 @@ public class DoctorRepository : IDoctorRepository
        _context.Doctors.Remove(doctor);
        return await _context.SaveChangesAsync();
    }
+
+   public async Task<bool> CreateDoctorAsync(Doctor doctor)
+   {
+       try
+       {
+           _context.Doctors.AddAsync(doctor);
+           _context.SaveChangesAsync();
+           return true; 
+       }
+       catch(Exception e)
+       {
+           Console.WriteLine(e);
+           return false; 
+       }
+   }
 }
