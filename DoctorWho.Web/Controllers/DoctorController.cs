@@ -44,4 +44,20 @@ public class DoctorController : Controller
 
        return Ok(_mapper.Map<DoctorDTO>(doctor));
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<DoctorDTO>> DeleteDoctor(int id)
+    {
+        var doctor = await _repository.GetDoctorWithEpisodes(id);
+        
+        if (doctor == null)
+            return NotFound();
+        
+        if (await _repository.DeleteDoctorAsync(doctor) <= 0)
+            return StatusCode(500, "Internal Server Error");
+        
+        return NoContent();
+    }
+
+    
 }
