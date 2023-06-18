@@ -10,7 +10,7 @@ public class DoctorValidation : AbstractValidator<Doctor>
         RuleFor(D => D.DoctorName)
             .NotEmpty().NotNull().WithMessage("The Name is Required.");
         RuleFor(D => D.DoctorNumber)
-            .NotEmpty().NotEmpty().WithMessage("The Number is Required.");
+            .NotEmpty().NotNull().WithMessage("The Number is Required.");
         RuleFor(D => D.LastEpisodeDate)
             .GreaterThanOrEqualTo(D => D.FirstEpisodeDate)
             .Must((doctor, lastEpisode) => ValidateLastEpisode(doctor.FirstEpisodeDate, lastEpisode));
