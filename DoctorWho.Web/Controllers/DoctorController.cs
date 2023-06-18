@@ -33,7 +33,7 @@ public class DoctorController : Controller
         return Ok(_mapper.Map<IEnumerable<DoctorDTO>>(doctors));
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}",Name = "GetDoctor")]
     public async Task<ActionResult<DoctorDTO>> GetDoctor(int id)
     {
        var doctor = await _repository.GetDoctorAsync(id);
@@ -59,5 +59,24 @@ public class DoctorController : Controller
         return NoContent();
     }
 
-    
+    [HttpPost]
+    public async Task<ActionResult<DoctorDTO>> PostDoctor(int docID, DoctorDTO doctorDto)
+    {
+        if (await _repository.GetDoctorAsync(docID) != null)
+        {
+            return Conflict("The Doctor already exists.");
+        }
+
+        var doctor = _mapper.Map<Doctor>(doctorDto);
+        doctor.DoctorId = docID;
+        var saved = await _repository.CreateDoctorAsync(doctor);
+
+        if (!saved)
+        {
+            return BadRequest();
+        }
+        
+        return CreatedAtRoute("GetDoctor",
+            new {id = docID},doctorDto);
+    }
 }
