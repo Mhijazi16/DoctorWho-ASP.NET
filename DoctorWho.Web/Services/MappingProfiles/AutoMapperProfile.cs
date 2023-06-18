@@ -7,6 +7,7 @@ public class AutoMapperProfile : Profile
 {
    public AutoMapperProfile()
    {
-      CreateMap<Doctor, DoctorDTO>();
+      CreateMap<DoctorDTO, Doctor>();
+      CreateMap<List<DoctorDTO>, List<Doctor>>();
    } 
 }
