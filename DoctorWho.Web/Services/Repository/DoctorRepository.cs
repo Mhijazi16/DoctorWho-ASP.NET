@@ -82,4 +82,19 @@ public class DoctorRepository : IDoctorRepository
            return false; 
        }
    }
+
+   public async Task<bool> UpdateDoctorAsync(Doctor doctor)
+   {
+       try
+       {
+           _context.Doctors.Update(doctor);
+           await _context.SaveChangesAsync();
+           return true;
+       }
+       catch(Exception e)
+       {
+           Console.WriteLine(e);
+           return false;
+       }
+   }
 }
