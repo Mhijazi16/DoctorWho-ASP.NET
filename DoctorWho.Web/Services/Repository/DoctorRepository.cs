@@ -1,5 +1,6 @@
 using DoctorWho.Db;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace DoctorWhoRepository;
 
@@ -16,6 +17,12 @@ public class DoctorRepository : IDoctorRepository
    public async Task<Doctor?> GetDoctorAsync(int id)
        => await _context.Doctors.FindAsync(id);
 
+   public async Task<Doctor?> GetDoctorWithEpisodes(int id)
+   {
+      return await  _context.Doctors
+          .Include(doc => doc.TblEpisodes)
+          .FirstOrDefaultAsync(doc=>doc.DoctorId == id);
+   }
    public async Task<bool> InsertDoctorAsync(Doctor doctor)
    {
        await _context.Doctors.AddAsync(doctor);
@@ -55,17 +62,9 @@ public class DoctorRepository : IDoctorRepository
        }
    }
 
-   public async Task<bool> DeleteDoctorAsync(Doctor doctor)
+   public async Task<int> DeleteDoctorAsync(Doctor doctor)
    {
        _context.Doctors.Remove(doctor);
-       try
-       {
-           await _context.SaveChangesAsync();
-           return true;
-       }
-       catch
-       {
-           return false; 
-       }
+       return await _context.SaveChangesAsync();
    }
 }
