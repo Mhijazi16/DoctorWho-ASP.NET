@@ -36,38 +36,11 @@ public class DoctorRepository : IDoctorRepository
            return false;
        }
    }
-
-   public async Task<bool> UpdateDocotrAsync(int id, Doctor data)
-   {
-       var doctor = await _context.Doctors.FindAsync(id);
-
-       if (doctor == null)
-           return false; 
-       doctor.DoctorName = data.DoctorName;
-       doctor.DoctorNumber = data.DoctorNumber;
-       doctor.FirstEpisodeDate = data.FirstEpisodeDate;
-       doctor.LastEpisodeDate = data.LastEpisodeDate;
-       doctor.BirthDate = data.BirthDate;
-
-       _context.Update(doctor);
-       
-       try
-       {
-           await _context.SaveChangesAsync();
-           return true;
-       }
-       catch
-       {
-           return false; 
-       }
-   }
-
    public async Task<int> DeleteDoctorAsync(Doctor doctor)
    {
        _context.Doctors.Remove(doctor);
        return await _context.SaveChangesAsync();
    }
-
    public async Task<bool> CreateDoctorAsync(Doctor doctor)
    {
        try
@@ -82,12 +55,20 @@ public class DoctorRepository : IDoctorRepository
            return false; 
        }
    }
-
-   public async Task<bool> UpdateDoctorAsync(Doctor doctor)
+   public async Task<bool> UpdateDoctorAsync(int id,Doctor data)
    {
+       var doctor = await GetDoctorAsync(id);
+       if (doctor == null)
+           return false;
+
+       doctor.DoctorName = data.DoctorName;
+       doctor.FirstEpisodeDate = data.FirstEpisodeDate;
+       doctor.LastEpisodeDate = data.LastEpisodeDate;
+       doctor.DoctorNumber = data.DoctorNumber;
+       
        try
        {
-           _context.Doctors.Update(doctor);
+           _context.Update(doctor);
            await _context.SaveChangesAsync();
            return true;
        }
