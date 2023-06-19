@@ -86,4 +86,25 @@ public class DoctorController : Controller
         return CreatedAtRoute("GetDoctor",
             new {id = docID},doctorDto);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult> PutDoctor(int id, DoctorDTO doctorDto)
+    {
+         
+         var data = _mapper.Map<Doctor>(doctorDto);
+         
+         if (!ModelState.IsValid)
+         {
+             return BadRequest();
+         }
+         
+         var updated = await _repository.UpdateDoctorAsync(id, data);
+ 
+         if (!updated)
+         {
+             return BadRequest();
+         }
+
+         return NoContent();
+    }
 }
