@@ -15,9 +15,9 @@ public class EpisodeRepository : IEpisodeRepository
         return await _context.Episodes.ToListAsync();
     }
 
-    public Task<Episode?> GetEpisodeAsync(int id)
+    public async Task<Episode?> GetEpisodeAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Episodes.FindAsync(id);
     }
 
     public Task<bool> InsertEpisodeAsync(Episode doctor)
