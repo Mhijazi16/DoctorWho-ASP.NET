@@ -5,6 +5,10 @@ namespace DoctorWho.Web.Services.Repository;
 
 public class EpisodeRepository : IEpisodeRepository
 {
+    private readonly DoctorWhoContext _context;
+
+    public EpisodeRepository()
+        => _context = new DoctorWhoContext();
     public Task<IEnumerable<Episode>> GetAllEpisodesAsync()
     {
         throw new NotImplementedException();
