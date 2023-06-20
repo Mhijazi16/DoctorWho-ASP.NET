@@ -50,13 +50,18 @@ public class EpisodeRepository : IEpisodeRepository
         }
     }
 
-    public Task<bool> CreateEpisodeAsync(Episode episode)
+    public async Task<bool> UpdateEpisodeAsync(int id, Episode data)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> UpdateEpisodeAsync(int id, Episode data)
-    {
-        throw new NotImplementedException();
+        try
+        {
+            _context.Episodes.Update(data);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
     }
 }
