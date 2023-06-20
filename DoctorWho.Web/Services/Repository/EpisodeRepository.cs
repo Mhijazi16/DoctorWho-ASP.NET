@@ -1,5 +1,6 @@
 using DoctorWho.Db;
 using EpisodeWhoRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Web.Services.Repository;
 
@@ -9,9 +10,9 @@ public class EpisodeRepository : IEpisodeRepository
 
     public EpisodeRepository()
         => _context = new DoctorWhoContext();
-    public Task<IEnumerable<Episode>> GetAllEpisodesAsync()
+    public async Task<IEnumerable<Episode>> GetAllEpisodesAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Episodes.ToListAsync();
     }
 
     public Task<Episode?> GetEpisodeAsync(int id)
