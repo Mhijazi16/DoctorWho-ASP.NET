@@ -35,9 +35,19 @@ public class EpisodeRepository : IEpisodeRepository
         }
     }
 
-    public Task<int> DeleteEpisodeAsync(Episode episode)
+    public bool DeleteEpisodeAsync(Episode episode)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _context.Episodes.Remove(episode);
+            _context.SaveChanges();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
     }
 
     public Task<bool> CreateEpisodeAsync(Episode episode)
