@@ -1,10 +1,13 @@
 using AutoMapper;
+using Azure;
 using DoctorWho.Db;
 using DoctorWho.Db.Migrations;
 using DoctorWho.Web.DTO_s;
 using DoctorWhoRepository;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using JsonPatchDocument = Azure.JsonPatchDocument;
 
 namespace DoctorWho.Web.Controllers;
 
@@ -91,20 +94,47 @@ public class DoctorController : Controller
     public async Task<ActionResult> PutDoctor(int id, DoctorDTO doctorDto)
     {
          
-         var data = _mapper.Map<Doctor>(doctorDto);
+         var doctor = _mapper.Map<Doctor>(doctorDto);
          
-         if (!ModelState.IsValid)
+         if (!ModelState.IsValid || !TryValidateModel(doctor))
          {
-             return BadRequest();
+             return BadRequest(ModelState);
          }
          
-         var updated = await _repository.UpdateDoctorAsync(id, data);
+         var updated = await _repository.UpdateDoctorAsync(id, doctor);
  
          if (!updated)
          {
-             return BadRequest();
+             return StatusCode(500, "Internal Server Error");
          }
 
          return NoContent();
+    }
+
+    [HttpPatch]
+    public async Task<ActionResult> PatchDoctor(int id, JsonPatchDocument<DoctorDTO> patchDocument)
+    {
+        var doctor = await _repository.GetDoctorAsync(id);
+        DoctorDTO clone = _mapper.Map<DoctorDTO>(doctor);
+        if (doctor == null)
+        {
+            return NotFound();
+        }
+
+        patchDocument.ApplyTo(clone);
+        doctor = _mapper.Map<Doctor>(clone);
+
+        if (!ModelState.IsValid || !TryValidateModel(doctor))
+        {
+            return BadRequest(ModelState);
+        }
+        
+        bool updated = await _repository.UpdateDoctorAsync(id, doctor);
+        if (!updated)
+        {
+            return StatusCode(500, "Internal Server Error");
+        }
+
+        return NoContent();
     }
 }
