@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
+    .AddNewtonsoftJson()
     .AddFluentValidation(options =>
     {
         options.ImplicitlyValidateChildProperties = true;
