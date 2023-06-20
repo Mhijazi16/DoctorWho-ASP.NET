@@ -20,17 +20,27 @@ public class EpisodeRepository : IEpisodeRepository
         return await _context.Episodes.FindAsync(id);
     }
 
-    public Task<bool> InsertEpisodeAsync(Episode doctor)
+    public async Task<bool> InsertEpisodeAsync(Episode episode)
+    {
+        try
+        {
+            await _context.Episodes.AddAsync(episode);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+    }
+
+    public Task<int> DeleteEpisodeAsync(Episode episode)
     {
         throw new NotImplementedException();
     }
 
-    public Task<int> DeleteEpisodeAsync(Episode doctor)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> CreateEpisodeAsync(Episode doctor)
+    public Task<bool> CreateEpisodeAsync(Episode episode)
     {
         throw new NotImplementedException();
     }
